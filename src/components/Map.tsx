@@ -97,16 +97,16 @@ const Map: React.FC<MapProps> = ({
         className: 'route-path'
       };
       
+      // Add dash array styling for selected routes using className and CSS
+      if (isSelected) {
+        // Instead of using setAttribute, we'll use a special class name
+        // and apply the styling with CSS
+        pathOptions.className = 'route-path selected-route';
+      }
+      
       // Create a path for each segment of the route
       route.segments.forEach(segment => {
         const path = L.polyline(segment.coordinates, pathOptions);
-        
-        // Add a pulse effect to selected route
-        if (isSelected) {
-          path.setAttribute('stroke-dasharray', '1, 10');
-          path.setAttribute('stroke-dashoffset', '0');
-        }
-        
         path.addTo(mapRef.current!);
         routeLayers.current.push(path);
       });
